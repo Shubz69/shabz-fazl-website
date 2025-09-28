@@ -57,55 +57,56 @@ document.addEventListener('DOMContentLoaded', function() {
     // Test if JavaScript is working
     console.log('JavaScript is working!');
     
-// Contact form submission - Direct email sending
-const sendBtn = document.getElementById('send-btn');
+// Contact form submission - Send to server
+const contactForm = document.getElementById('contact-form');
 
-if (sendBtn) {
-    sendBtn.addEventListener('click', function() {
-        const name = document.getElementById('name').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const message = document.getElementById('message').value.trim();
+if (contactForm) {
+    contactForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
         
-        // Validate fields
-        if (!name || !email || !message) {
-            alert('Please fill in all fields');
-            return;
-        }
-        
-        // Validate email
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            alert('Please enter a valid email address');
-            return;
-        }
+        const submitBtn = this.querySelector('.submit-btn');
+        const originalText = submitBtn.textContent;
         
         // Show loading state
-        const originalText = sendBtn.textContent;
-        sendBtn.textContent = 'Sending...';
-        sendBtn.disabled = true;
+        submitBtn.textContent = 'Sending...';
+        submitBtn.disabled = true;
         
-        // Create email content
-        const subject = `Message from ${name} - Website Contact Form`;
-        const body = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
-        
-        // Create mailto link
-        const mailtoLink = `mailto:contact@shabzfazl.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-        
-        // Open email client
-        window.location.href = mailtoLink;
-        
-        // Reset button after a moment
-        setTimeout(() => {
-            sendBtn.textContent = originalText;
-            sendBtn.disabled = false;
+        try {
+            // Get form data
+            const formData = new FormData(this);
+            const data = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                message: formData.get('message')
+            };
             
-            // Clear form
-            document.getElementById('name').value = '';
-            document.getElementById('email').value = '';
-            document.getElementById('message').value = '';
+            // Send to server
+            const response = await fetch('/send-email', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            });
             
-            alert('Your email client should open with the message ready to send. Click send in your email client to deliver the message to contact@shabzfazl.com');
-        }, 1000);
+            const result = await response.json();
+            
+            if (result.success) {
+                alert(result.message);
+                // Clear form
+                this.reset();
+            } else {
+                alert('Error: ' + result.message);
+            }
+            
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Failed to send message. Please try again later.');
+        } finally {
+            // Reset button
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        }
     });
 }
     
