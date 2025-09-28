@@ -17,21 +17,20 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static('.'));
 
-// Email configuration - try GoDaddy webmail SMTP
+// Email configuration - try GoDaddy relay server
 const transporter = nodemailer.createTransport({
-    host: 'smtpout.secureserver.net', // GoDaddy webmail SMTP
-    port: 587, // Use port 587 with STARTTLS instead of 465
-    secure: false, // Use STARTTLS
+    host: 'relay-hosting.secureserver.net', // GoDaddy relay server
+    port: 25, // Standard SMTP port
+    secure: false,
     auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS
     },
-    connectionTimeout: 30000, // 30 seconds
-    greetingTimeout: 15000,   // 15 seconds
-    socketTimeout: 30000,     // 30 seconds
+    connectionTimeout: 30000,
+    greetingTimeout: 15000,
+    socketTimeout: 30000,
     tls: {
-        rejectUnauthorized: false,
-        ciphers: 'SSLv3'
+        rejectUnauthorized: false
     }
 });
 
