@@ -27,8 +27,9 @@ app.use(express.json());
 app.use(express.static('.'));
 
 // Email configuration - using Resend (reliable email service)
+console.log('🔧 CONFIGURING RESEND TRANSPORTER...');
 const transporter = nodemailer.createTransport({
-    host: 'smtp.resend.com',
+    host: 'smtp.resend.com', // RESEND SMTP SERVER
     port: 587,
     secure: false,
     auth: {
@@ -36,6 +37,7 @@ const transporter = nodemailer.createTransport({
         pass: process.env.RESEND_API_KEY || 'dummy-key'
     }
 });
+console.log('✅ RESEND TRANSPORTER CONFIGURED');
 
 // Email template
 const createEmailTemplate = (name, email, message) => {
