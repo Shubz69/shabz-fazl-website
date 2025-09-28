@@ -57,7 +57,34 @@ document.addEventListener('DOMContentLoaded', function() {
     // Test if JavaScript is working
     console.log('JavaScript is working!');
     
-        // Contact form - Netlify Forms handles submission automatically
+        // Contact form submission
+        const contactForm = document.getElementById('contact-form');
+        
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const name = this.querySelector('input[name="name"]').value;
+                const email = this.querySelector('input[name="email"]').value;
+                const message = this.querySelector('textarea[name="message"]').value;
+                
+                if (!name || !email || !message) {
+                    alert('Please fill in all fields.');
+                    return;
+                }
+                
+                // Create mailto link
+                const subject = `Contact from ${name}`;
+                const body = `Name: ${name}\nEmail: ${email}\nMessage: ${message}`;
+                const mailtoLink = `mailto:contact@shabzfazl.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                
+                // Open email client
+                window.location.href = mailtoLink;
+                
+                // Show success message
+                alert('Your email client will open. Please send the email to complete your message.');
+            });
+        }
     
         // Check for success parameter in URL
         const urlParams = new URLSearchParams(window.location.search);
