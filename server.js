@@ -137,4 +137,6 @@ app.listen(PORT, () => {
     } else {
         console.log(`Email Config: ${transporter ? 'Configured' : 'Not Configured'}`);
     }
+    
+    console.log('Server started successfully - contact form ready');
 });
