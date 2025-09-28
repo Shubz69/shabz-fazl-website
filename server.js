@@ -127,7 +127,17 @@ app.get('/', (req, res) => {
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
-    res.json({ status: 'OK', message: 'Server is running' });
+    res.json({ 
+        status: 'OK', 
+        message: 'Server is running',
+        timestamp: new Date().toISOString(),
+        resendConfigured: !!process.env.RESEND_API_KEY
+    });
+});
+
+// Simple test endpoint
+app.get('/api/test', (req, res) => {
+    res.json({ message: 'Server is working!' });
 });
 
 // Start server with error handling
@@ -139,13 +149,15 @@ app.listen(PORT, () => {
     process.exit(1);
 });
 
-// Handle uncaught exceptions to prevent crashes
+// Handle uncaught exceptions gracefully (don't exit on Railway)
 process.on('uncaughtException', (err) => {
     console.error('Uncaught Exception:', err);
-    process.exit(1);
+    console.log('Server will continue running...');
+    // Don't exit on Railway - let it restart automatically
 });
 
 process.on('unhandledRejection', (reason, promise) => {
     console.error('Unhandled Rejection at:', promise, 'reason:', reason);
-    process.exit(1);
+    console.log('Server will continue running...');
+    // Don't exit on Railway - let it restart automatically
 });
