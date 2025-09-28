@@ -57,46 +57,72 @@ document.addEventListener('DOMContentLoaded', function() {
     // Test if JavaScript is working
     console.log('JavaScript is working!');
     
-    // Contact form submission handling
-    const contactForm = document.getElementById('contactForm');
-    console.log('Contact form found:', contactForm);
-    
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            console.log('Form submitted');
-            
-            // Get form data
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const message = document.getElementById('message').value.trim();
-            
-            // Validation
-            if (!name || !email || !message) {
+        // Contact form submission handling
+        const contactForm = document.getElementById('contactForm');
+        console.log('Contact form found:', contactForm);
+        
+        if (contactForm) {
+            contactForm.addEventListener('submit', async function(e) {
                 e.preventDefault();
-                alert('Please fill in all required fields.');
-                return;
-            }
-            
-            // Email validation
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                e.preventDefault();
-                alert('Please enter a valid email address.');
-                return;
-            }
-            
-            // Show loading state
-            const submitBtn = this.querySelector('.submit-btn');
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = 'Sending...';
-            submitBtn.disabled = true;
-            
-            // The form will now submit to Netlify which will send the email directly
-            console.log('Form data being sent:', { name, email, message });
-        });
-    } else {
-        console.error('Contact form not found!');
-    }
+                console.log('Form submitted');
+                
+                // Get form data
+                const name = document.getElementById('name').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const message = document.getElementById('message').value.trim();
+                
+                // Validation
+                if (!name || !email || !message) {
+                    alert('Please fill in all required fields.');
+                    return;
+                }
+                
+                // Email validation
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    alert('Please enter a valid email address.');
+                    return;
+                }
+                
+                // Show loading state
+                const submitBtn = this.querySelector('.submit-btn');
+                const originalText = submitBtn.textContent;
+                submitBtn.textContent = 'Sending...';
+                submitBtn.disabled = true;
+                
+                try {
+                    // Send data to server
+                    const response = await fetch('/api/contact', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ name, email, message })
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        alert(result.message);
+                        contactForm.reset(); // Clear the form
+                    } else {
+                        alert(result.message || 'Sorry, there was an error sending your message. Please try again.');
+                    }
+                    
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Sorry, there was an error sending your message. Please try again later.');
+                } finally {
+                    // Reset button state
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }
+                
+                console.log('Form data being sent:', { name, email, message });
+            });
+        } else {
+            console.error('Contact form not found!');
+        }
     
         // Check for success parameter in URL
         const urlParams = new URLSearchParams(window.location.search);

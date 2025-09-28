@@ -1,77 +1,89 @@
-# Shabz Fazl - High Performance Coach Landing Page
+# Shabz Fazl Website
 
-A modern, responsive landing page for high-performance coach Shabz Fazl, featuring futuristic design with purple gradients and neon accents.
+Professional website for Shabz Fazl Mindset Coach with server-based email functionality.
 
-## Features
+## 🚀 Quick Start
 
-- **Responsive Design**: Optimized for all devices (desktop, tablet, mobile)
-- **Modern UI**: Futuristic purple gradient background with glowing effects
-- **Smooth Animations**: Scroll-triggered animations and hover effects
-- **Performance Optimized**: Fast loading with minimal dependencies
-- **SEO Ready**: Semantic HTML structure with proper meta tags
-
-## Quick Deploy Options
-
-### Option 1: Netlify (Recommended)
-1. Go to [netlify.com](https://netlify.com)
-2. Drag and drop this entire folder to deploy instantly
-3. Your site will be live in seconds!
-
-### Option 2: Vercel
-1. Go to [vercel.com](https://vercel.com)
-2. Import this project
-3. Deploy with one click
-
-### Option 3: GitHub Pages
-1. Push to GitHub repository
-2. Enable GitHub Pages in repository settings
-3. Select source branch
-
-## Customization
-
-### Update Booking Link
-Replace the placeholder booking URL in `script.js`:
-```javascript
-const bookingUrl = 'https://your-booking-link.com';
+### 1. Install Dependencies
+```bash
+npm install
 ```
 
-### Change Colors
-Modify CSS variables in `styles.css`:
-- Primary gradient: `#1a002e` to `#2e004f`
-- Accent color: `#b84fff`
-- Text colors: `#ffffff`, `#e8d5ff`
+### 2. Configure Email Settings
 
-### Add Analytics
-Uncomment and configure analytics tracking in `script.js`:
-```javascript
-// gtag('event', 'click', { 'event_category': 'CTA', 'event_label': action });
+Create a `.env` file in the root directory with your email credentials:
+
+```env
+EMAIL_USER=your-email@gmail.com
+EMAIL_PASS=your-app-password
+PORT=3000
 ```
 
-## Files Structure
+### 3. Gmail Setup (Recommended)
+
+1. **Enable 2-Factor Authentication** on your Gmail account
+2. **Generate an App Password**:
+   - Go to Google Account settings
+   - Security → 2-Step Verification → App passwords
+   - Generate a password for "Mail"
+   - Use this password in your `.env` file
+
+### 4. Run the Server
+
+```bash
+# Development mode (with auto-restart)
+npm run dev
+
+# Production mode
+npm start
+```
+
+### 5. Access the Website
+
+Open your browser and go to: `http://localhost:3000`
+
+## 📧 Email Configuration
+
+The server will send emails directly to `contact@shabzfazl.com` when the contact form is submitted.
+
+### Alternative Email Services
+
+You can modify the email configuration in `server.js` to use other services:
+
+- **Outlook/Hotmail**: Change service to 'hotmail'
+- **Yahoo**: Change service to 'yahoo'
+- **Custom SMTP**: Replace the service configuration with your SMTP settings
+
+## 🛠️ Features
+
+- ✅ Professional dark purple design
+- ✅ Responsive layout
+- ✅ Server-based email handling
+- ✅ Form validation
+- ✅ Professional email templates
+- ✅ Error handling and user feedback
+
+## 📁 File Structure
 
 ```
-├── index.html          # Main HTML structure
-├── styles.css          # All styling and responsive design
-├── script.js           # Interactive functionality
-├── netlify.toml        # Netlify deployment configuration
-└── README.md           # This file
+├── index.html          # Main website
+├── styles.css          # Styling
+├── script.js           # Frontend JavaScript
+├── server.js           # Node.js server
+├── package.json        # Dependencies
+└── README.md          # This file
 ```
 
-## Browser Support
+## 🔧 Troubleshooting
 
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
-- Mobile browsers (iOS Safari, Chrome Mobile)
+### Email Not Sending
+1. Check your `.env` file has correct credentials
+2. Ensure 2FA is enabled and app password is correct
+3. Check server console for error messages
 
-## Performance
+### Port Already in Use
+Change the PORT in your `.env` file to a different number (e.g., 3001, 8080)
 
-- **Lighthouse Score**: 95+ (Performance, Accessibility, Best Practices, SEO)
-- **First Contentful Paint**: < 1.5s
-- **Largest Contentful Paint**: < 2.5s
-- **Cumulative Layout Shift**: < 0.1
+## 📞 Support
 
-## License
-
-Private use only. All rights reserved.
+For any issues or questions, contact the development team.
