@@ -17,11 +17,11 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static('.'));
 
-// Email configuration - try Gmail SMTP first, fallback to GoDaddy
+// Email configuration - try GoDaddy webmail SMTP
 const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com', // Gmail SMTP server (more reliable)
-    port: 587, // Gmail SMTP port for TLS
-    secure: false, // Use TLS
+    host: 'smtpout.secureserver.net', // GoDaddy webmail SMTP
+    port: 587, // Use port 587 with STARTTLS instead of 465
+    secure: false, // Use STARTTLS
     auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS
@@ -30,7 +30,8 @@ const transporter = nodemailer.createTransport({
     greetingTimeout: 15000,   // 15 seconds
     socketTimeout: 30000,     // 30 seconds
     tls: {
-        rejectUnauthorized: false
+        rejectUnauthorized: false,
+        ciphers: 'SSLv3'
     }
 });
 
