@@ -17,14 +17,20 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static('.'));
 
-// Email configuration - using Resend (reliable email service)
+// Email configuration - GoDaddy SMTP (sending TO your email)
 const transporter = nodemailer.createTransport({
-    host: 'smtp.resend.com',
-    port: 587,
-    secure: false,
+    host: 'smtpout.secureserver.net',
+    port: 465,
+    secure: true,
     auth: {
-        user: 'resend',
-        pass: process.env.RESEND_API_KEY
+        user: process.env.EMAIL_USER, // Your GoDaddy email
+        pass: process.env.EMAIL_PASS  // Your GoDaddy password
+    },
+    connectionTimeout: 30000,
+    greetingTimeout: 15000,
+    socketTimeout: 30000,
+    tls: {
+        rejectUnauthorized: false
     }
 });
 
@@ -74,10 +80,10 @@ app.post('/api/contact', async (req, res) => {
             });
         }
 
-        // Email options - send TO your GoDaddy email
+        // Email options - send from your GoDaddy email to your GoDaddy email
         const mailOptions = {
-            from: 'noreply@shabzfazl.com', // From Resend (will be verified)
-            to: 'contact@shabzfazl.com', // TO your GoDaddy email
+            from: process.env.EMAIL_USER, // FROM your GoDaddy email
+            to: process.env.EMAIL_USER,   // TO your GoDaddy email (same address)
             subject: `New Contact Form Submission from ${name}`,
             html: createEmailTemplate(name, email, message),
             replyTo: email // So you can reply directly to the person
