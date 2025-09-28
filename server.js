@@ -17,20 +17,14 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static('.'));
 
-// Email configuration - try GoDaddy relay server
+// Email configuration - using Resend (reliable email service)
 const transporter = nodemailer.createTransport({
-    host: 'relay-hosting.secureserver.net', // GoDaddy relay server
-    port: 25, // Standard SMTP port
+    host: 'smtp.resend.com',
+    port: 587,
     secure: false,
     auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
-    },
-    connectionTimeout: 30000,
-    greetingTimeout: 15000,
-    socketTimeout: 30000,
-    tls: {
-        rejectUnauthorized: false
+        user: 'resend',
+        pass: process.env.RESEND_API_KEY
     }
 });
 
