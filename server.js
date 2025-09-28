@@ -17,7 +17,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static('.'));
 
-// Email configuration for GoDaddy
+// Email configuration for GoDaddy with timeout settings
 const transporter = nodemailer.createTransport({
     host: 'smtpout.secureserver.net', // GoDaddy SMTP server
     port: 465, // GoDaddy SMTP port for SSL
@@ -26,6 +26,9 @@ const transporter = nodemailer.createTransport({
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS
     },
+    connectionTimeout: 60000, // 60 seconds
+    greetingTimeout: 30000,   // 30 seconds
+    socketTimeout: 60000,     // 60 seconds
     tls: {
         rejectUnauthorized: false
     }
@@ -86,12 +89,7 @@ app.post('/api/contact', async (req, res) => {
             replyTo: email
         };
 
-        // Test connection first
-        console.log('Testing email connection...');
-        await transporter.verify();
-        console.log('Email connection verified successfully!');
-
-        // Send email
+        // Send email directly (connection will be established when sending)
         console.log('Sending email...');
         const info = await transporter.sendMail(mailOptions);
         console.log('Email sent successfully:', info.messageId);
