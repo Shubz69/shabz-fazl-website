@@ -13,6 +13,13 @@ console.log('Email Pass:', process.env.EMAIL_PASS ? '***hidden***' : 'NOT SET');
 console.log('Resend API Key:', process.env.RESEND_API_KEY ? '***SET***' : 'NOT SET');
 console.log('Port:', PORT);
 
+// Check if Resend API key is properly set
+if (!process.env.RESEND_API_KEY) {
+    console.warn('⚠️  WARNING: RESEND_API_KEY not set! Emails will fail.');
+} else {
+    console.log('✅ Resend API Key is configured');
+}
+
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -25,7 +32,7 @@ const transporter = nodemailer.createTransport({
     secure: false,
     auth: {
         user: 'resend',
-        pass: process.env.RESEND_API_KEY
+        pass: process.env.RESEND_API_KEY || 'dummy-key'
     }
 });
 
