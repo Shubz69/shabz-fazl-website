@@ -499,64 +499,97 @@ body {
     overflow: hidden;
 }
 
-.contact-email-section {
+.contact-form-section {
     display: flex;
     justify-content: center;
     margin: 60px 0;
 }
 
-.email-card {
+.contact-form {
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
     border: 1px solid var(--color-border-light);
     border-radius: var(--border-radius-large);
     padding: 40px;
-    text-align: center;
     max-width: 500px;
     width: 100%;
     box-shadow: 0 10px 30px var(--color-shadow-dark);
 }
 
-.email-icon {
-    font-size: 3rem;
-    margin-bottom: 20px;
+.form-header {
+    text-align: center;
+    margin-bottom: 30px;
 }
 
-.email-card h3 {
+.form-header h3 {
     font-size: 1.8rem;
     font-weight: 600;
     color: var(--color-white);
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
-.email-address {
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: var(--color-light-purple);
-    margin-bottom: 15px;
-    word-break: break-all;
-}
-
-.email-description {
+.form-header p {
     color: var(--color-text-light);
-    margin-bottom: 30px;
-    line-height: 1.6;
+    font-size: 1rem;
 }
 
-.email-btn {
-    display: inline-block;
-    padding: 16px 32px;
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    position: relative;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 15px 20px;
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--border-radius-medium);
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--color-white);
+    font-size: 1rem;
+    transition: all var(--transition-speed) ease;
+    font-family: var(--font-family-primary);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-accent-purple);
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: var(--color-text-light);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 18px 32px;
     background: var(--color-accent-purple);
     color: var(--color-white);
-    text-decoration: none;
+    border: none;
     border-radius: var(--border-radius-medium);
-    font-weight: 600;
     font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
     transition: all var(--transition-speed) ease;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    font-family: var(--font-family-primary);
 }
 
-.email-btn:hover {
+.submit-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
     background: var(--color-light-purple);

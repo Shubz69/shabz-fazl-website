@@ -48,38 +48,51 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Form submission handling
-    const form = document.querySelector('.form');
-    if (form) {
-        form.addEventListener('submit', function(e) {
+    // Contact form submission handling
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
             // Get form data
             const formData = new FormData(this);
             const name = formData.get('name');
             const email = formData.get('email');
-            const service = formData.get('service');
             const message = formData.get('message');
             
             // Simple validation
-            if (!name || !email || !service) {
+            if (!name || !email || !message) {
                 alert('Please fill in all required fields.');
                 return;
             }
             
-            // Simulate form submission
-            const submitBtn = this.querySelector('.submit-btn');
-            const originalText = submitBtn.querySelector('span').textContent;
+            // Create email content
+            const subject = `Mindset Coaching Inquiry from ${name}`;
+            const emailBody = `Hi Shabz,
+
+I'm interested in your mindset coaching services.
+
+Name: ${name}
+Email: ${email}
+
+Message:
+${message}
+
+Best regards,
+${name}`;
             
-            submitBtn.querySelector('span').textContent = 'Sending...';
-            submitBtn.disabled = true;
+            // Encode the email content for mailto link
+            const encodedSubject = encodeURIComponent(subject);
+            const encodedBody = encodeURIComponent(emailBody);
             
-            setTimeout(() => {
-                alert('Thank you for your message! Shabz will get back to you soon.');
-                this.reset();
-                submitBtn.querySelector('span').textContent = originalText;
-                submitBtn.disabled = false;
-            }, 2000);
+            // Create mailto link
+            const mailtoLink = `mailto:contact@shabzfazl.com?subject=${encodedSubject}&body=${encodedBody}`;
+            
+            // Open email client
+            window.location.href = mailtoLink;
+            
+            // Show confirmation
+            alert('Your email client should open with your message ready to send. If it doesn\'t open, please email contact@shabzfazl.com directly.');
         });
     }
     
