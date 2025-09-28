@@ -61,86 +61,49 @@ document.addEventListener('DOMContentLoaded', function() {
     const contactForm = document.getElementById('contactForm');
     console.log('Contact form found:', contactForm);
     
-    // Test button click
-    const submitBtn = document.querySelector('.submit-btn');
-    if (submitBtn) {
-        console.log('Submit button found:', submitBtn);
-        submitBtn.addEventListener('click', function() {
-            console.log('Submit button clicked!');
-        });
-    } else {
-        console.log('Submit button not found');
-    }
-    
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
             console.log('Form submitted');
             
-            // Get form data directly from input values
-            const nameInput = document.getElementById('name');
-            const emailInput = document.getElementById('email');
-            const messageInput = document.getElementById('message');
+            // Get form data
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
             
-            console.log('Input elements:', { nameInput, emailInput, messageInput });
-            
-            const name = nameInput ? nameInput.value.trim() : '';
-            const email = emailInput ? emailInput.value.trim() : '';
-            const message = messageInput ? messageInput.value.trim() : '';
-            
-            // Debug logging
-            console.log('Form data:', { name, email, message });
-            console.log('Field lengths:', { 
-                nameLength: name.length, 
-                emailLength: email.length, 
-                messageLength: message.length 
-            });
-            
-            // Simple validation
+            // Validation
             if (!name || !email || !message) {
-                alert(`Please fill in all required fields.\nName: "${name}"\nEmail: "${email}"\nMessage: "${message}"`);
+                e.preventDefault();
+                alert('Please fill in all required fields.');
                 return;
             }
             
             // Email validation
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(email)) {
+                e.preventDefault();
                 alert('Please enter a valid email address.');
                 return;
             }
             
-            // Create email content
-            const subject = `Mindset Coaching Inquiry from ${name}`;
-            const emailBody = `Hi Shabz,
-
-I'm interested in your mindset coaching services.
-
-Name: ${name}
-Email: ${email}
-
-Message:
-${message}
-
-Best regards,
-${name}`;
+            // Show loading state
+            const submitBtn = this.querySelector('.submit-btn');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
             
-            // Encode the email content for mailto link
-            const encodedSubject = encodeURIComponent(subject);
-            const encodedBody = encodeURIComponent(emailBody);
-            
-            // Create mailto link
-            const mailtoLink = `mailto:contact@shabzfazl.com?subject=${encodedSubject}&body=${encodedBody}`;
-            
-            console.log('Opening email client with link:', mailtoLink);
-            
-            // Open email client
-            window.location.href = mailtoLink;
-            
-            // Show confirmation
-            alert('Your email client should open with your message ready to send. If it doesn\'t open, please email contact@shabzfazl.com directly.');
+            // The form will now submit to Netlify which will send the email directly
+            console.log('Form data being sent:', { name, email, message });
         });
     } else {
         console.error('Contact form not found!');
+    }
+    
+    // Check for success parameter in URL
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('success') === 'true') {
+        alert('Thank you for your message! Shabz will get back to you within 24 hours.');
+        // Clean up the URL
+        window.history.replaceState({}, document.title, window.location.pathname);
     }
     
     // Parallax effect for floating elements
