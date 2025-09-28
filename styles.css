@@ -4,6 +4,51 @@
 /* AOS Animation Library */
 @import url('https://unpkg.com/aos@2.3.1/dist/aos.css');
 
+/* Custom smooth animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
 /* Base Styles */
 :root {
     --color-dark-purple-1: #1a0b2e;
@@ -124,6 +169,7 @@ body {
     overflow: hidden;
     text-align: center;
     background: linear-gradient(135deg, var(--color-dark-purple-1) 0%, var(--color-dark-purple-2) 100%);
+    animation: fadeInUp 1s ease-out;
 }
 
 .hero-background {
@@ -197,6 +243,7 @@ body {
     z-index: 2;
     max-width: 800px;
     margin: 0 auto;
+    animation: fadeInUp 1.2s ease-out 0.3s both;
 }
 
 .hero-badge {
@@ -352,6 +399,21 @@ body {
 .about-section {
     padding: var(--padding-section) 0;
     background: var(--color-dark-purple-1);
+    position: relative;
+    overflow: hidden;
+}
+
+.about-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 20%, rgba(124, 58, 237, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(124, 58, 237, 0.03) 0%, transparent 50%);
+    pointer-events: none;
 }
 
 .about-content {
@@ -403,11 +465,28 @@ body {
     display: flex;
     align-items: flex-start;
     gap: 20px;
-    padding: 20px;
+    padding: 25px;
     background: rgba(255, 255, 255, 0.05);
     border-radius: var(--border-radius-medium);
     border: 1px solid var(--color-border-light);
-    transition: all var(--transition-speed) ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.credential-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.6s ease;
+}
+
+.credential-item:hover::before {
+    left: 100%;
 }
 
 .credential-item:hover {
@@ -507,13 +586,26 @@ body {
 
 .contact-form {
     background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(15px);
     border: 1px solid var(--color-border-light);
     border-radius: var(--border-radius-large);
-    padding: 40px;
-    max-width: 500px;
+    padding: 50px;
+    max-width: 550px;
     width: 100%;
-    box-shadow: 0 10px 30px var(--color-shadow-dark);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-form::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.1) 0%, transparent 50%);
+    pointer-events: none;
 }
 
 .form-header {
@@ -546,22 +638,24 @@ body {
 .form-group input,
 .form-group textarea {
     width: 100%;
-    padding: 15px 20px;
+    padding: 18px 24px;
     border: 1px solid var(--color-border-light);
     border-radius: var(--border-radius-medium);
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.08);
     color: var(--color-white);
     font-size: 1rem;
-    transition: all var(--transition-speed) ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     font-family: var(--font-family-primary);
+    position: relative;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
     border-color: var(--color-accent-purple);
-    background: rgba(255, 255, 255, 0.15);
-    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
+    transform: translateY(-2px);
 }
 
 .form-group input::placeholder,
@@ -576,23 +670,39 @@ body {
 
 .submit-btn {
     width: 100%;
-    padding: 18px 32px;
-    background: var(--color-accent-purple);
+    padding: 20px 32px;
+    background: linear-gradient(135deg, var(--color-accent-purple), var(--color-light-purple));
     color: var(--color-white);
     border: none;
     border-radius: var(--border-radius-medium);
     font-size: 1.1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all var(--transition-speed) ease;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 25px rgba(124, 58, 237, 0.3);
     font-family: var(--font-family-primary);
+    position: relative;
+    overflow: hidden;
+}
+
+.submit-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.6s ease;
+}
+
+.submit-btn:hover::before {
+    left: 100%;
 }
 
 .submit-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-    background: var(--color-light-purple);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(124, 58, 237, 0.4);
 }
 
 .contact-background {

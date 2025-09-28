@@ -1,17 +1,18 @@
 // Modern functionality with animations and interactions
 console.log('=== SCRIPT LOADED ===');
 console.log('Script.js loaded successfully');
-alert('JavaScript is working! Check console for details.');
 
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM Content Loaded - script is running');
     
     // Initialize AOS (Animate On Scroll)
     AOS.init({
-        duration: 1000,
-        easing: 'ease-in-out',
+        duration: 1200,
+        easing: 'ease-out-cubic',
         once: true,
-        offset: 100
+        offset: 80,
+        delay: 100,
+        mirror: false
     });
     
     // Navbar scroll effect
