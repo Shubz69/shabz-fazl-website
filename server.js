@@ -129,7 +129,22 @@ app.get('/api/health', (req, res) => {
     res.json({ status: 'OK', message: 'Server is running' });
 });
 
+// Start server with error handling
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
     console.log(`Visit http://localhost:${PORT} to view the website`);
+}).on('error', (err) => {
+    console.error('Server error:', err);
+    process.exit(1);
+});
+
+// Handle uncaught exceptions to prevent crashes
+process.on('uncaughtException', (err) => {
+    console.error('Uncaught Exception:', err);
+    process.exit(1);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+    console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+    process.exit(1);
 });
