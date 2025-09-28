@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 3000;
 // Debug: Log environment variables
 console.log('Email User:', process.env.EMAIL_USER);
 console.log('Email Pass:', process.env.EMAIL_PASS ? '***hidden***' : 'NOT SET');
+console.log('Resend API Key:', process.env.RESEND_API_KEY ? '***SET***' : 'NOT SET');
 console.log('Port:', PORT);
 
 // Middleware
