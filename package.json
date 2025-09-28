@@ -2,9 +2,9 @@
   "name": "shabz-fazl-website",
   "version": "1.0.0",
   "description": "Professional website for Shabz Fazl Mindset Coach",
-  "main": "server.js",
+  "main": "server-minimal.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node server-minimal.js",
     "dev": "nodemon server.js",
     "build": "echo 'No build step required'",
     "test": "echo \"Error: no test specified\" && exit 1"
