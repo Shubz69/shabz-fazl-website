@@ -57,32 +57,19 @@ document.addEventListener('DOMContentLoaded', function() {
     // Test if JavaScript is working
     console.log('JavaScript is working!');
     
-        // Contact form submission
+        // Contact form submission - Formspree handles it
         const contactForm = document.getElementById('contact-form');
         
         if (contactForm) {
             contactForm.addEventListener('submit', function(e) {
-                e.preventDefault();
+                // Show loading state
+                const submitBtn = this.querySelector('.submit-btn');
+                const originalText = submitBtn.textContent;
+                submitBtn.textContent = 'Sending...';
+                submitBtn.disabled = true;
                 
-                const name = this.querySelector('input[name="name"]').value;
-                const email = this.querySelector('input[name="email"]').value;
-                const message = this.querySelector('textarea[name="message"]').value;
-                
-                if (!name || !email || !message) {
-                    alert('Please fill in all fields.');
-                    return;
-                }
-                
-                // Create mailto link
-                const subject = `Contact from ${name}`;
-                const body = `Name: ${name}\nEmail: ${email}\nMessage: ${message}`;
-                const mailtoLink = `mailto:contact@shabzfazl.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-                
-                // Open email client
-                window.location.href = mailtoLink;
-                
-                // Show success message
-                alert('Your email client will open. Please send the email to complete your message.');
+                // Let the form submit normally to Formspree
+                // Formspree will handle sending the email to contact@shabzfazl.com
             });
         }
     
