@@ -86,6 +86,10 @@ app.post('/api/contact', async (req, res) => {
 
         // Send email directly (connection will be established when sending)
         console.log('Sending email...');
+        console.log('Resend API Key available:', !!process.env.RESEND_API_KEY);
+        console.log('From:', mailOptions.from);
+        console.log('To:', mailOptions.to);
+        
         const info = await transporter.sendMail(mailOptions);
         console.log('Email sent successfully:', info.messageId);
         console.log(`Email sent successfully from ${name} (${email})`);
@@ -99,6 +103,8 @@ app.post('/api/contact', async (req, res) => {
         console.error('Detailed error sending email:', error);
         console.error('Error code:', error.code);
         console.error('Error response:', error.response);
+        console.error('Resend API Key available:', !!process.env.RESEND_API_KEY);
+        
         res.status(500).json({ 
             success: false, 
             message: 'Sorry, there was an error sending your message. Please try again later.' 
