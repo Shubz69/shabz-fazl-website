@@ -1,5 +1,8 @@
 // Modern functionality with animations and interactions
+console.log('Script.js loaded successfully');
+
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM Content Loaded - script is running');
     
     // Initialize AOS (Animate On Scroll)
     AOS.init({
@@ -48,9 +51,23 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
+    // Test if JavaScript is working
+    console.log('JavaScript is working!');
+    
     // Contact form submission handling
     const contactForm = document.getElementById('contactForm');
     console.log('Contact form found:', contactForm);
+    
+    // Test button click
+    const submitBtn = document.querySelector('.submit-btn');
+    if (submitBtn) {
+        console.log('Submit button found:', submitBtn);
+        submitBtn.addEventListener('click', function() {
+            console.log('Submit button clicked!');
+        });
+    } else {
+        console.log('Submit button not found');
+    }
     
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
