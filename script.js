@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('JavaScript is working!');
     
         // Contact form submission handling
-        const contactForm = document.getElementById('contactForm');
+        const contactForm = document.getElementById('contact-form');
         console.log('Contact form found:', contactForm);
         
         if (contactForm) {
