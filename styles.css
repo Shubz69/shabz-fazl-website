@@ -207,7 +207,7 @@ body::before {
 
 .hero-content {
     text-align: center;
-    max-width: 900px;
+    max-width: 600px;
     margin: 0 auto;
     position: relative;
     z-index: 2;
@@ -260,7 +260,7 @@ body::before {
     font-size: 1.4rem;
     color: #e2e8f0;
     margin-bottom: 50px;
-    max-width: 700px;
+    max-width: 600px;
     margin-left: auto;
     margin-right: auto;
     line-height: 1.6;
@@ -368,6 +368,57 @@ body::before {
     letter-spacing: 0.5px;
 }
 
+/* Hero Photo */
+.hero-photo {
+    position: absolute;
+    right: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.intro-photo {
+    position: relative;
+    width: 300px;
+    height: 400px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.intro-photo:hover {
+    transform: scale(1.05);
+}
+
+.coach-intro-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.photo-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+    padding: 30px 25px 25px;
+    color: #ffffff;
+}
+
+.photo-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.photo-title {
+    font-size: 1rem;
+    color: #a78bfa;
+    font-weight: 500;
+}
+
 .scroll-indicator {
     position: absolute;
     bottom: 30px;
@@ -402,10 +453,9 @@ body::before {
 }
 
 .about-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 100px;
-    align-items: center;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
     position: relative;
     z-index: 2;
 }
@@ -437,13 +487,15 @@ body::before {
 
 .credentials {
     margin-top: 50px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
 }
 
 .credential-item {
     display: flex;
     align-items: center;
     gap: 25px;
-    margin-bottom: 30px;
     padding: 25px;
     background: rgba(255, 255, 255, 0.05);
     border-radius: 20px;
@@ -455,7 +507,7 @@ body::before {
 
 .credential-item:hover {
     background: rgba(255, 255, 255, 0.1);
-    transform: translateX(15px);
+    transform: translateY(-5px);
     box-shadow: 0 15px 35px rgba(255, 255, 255, 0.1);
 }
 
@@ -468,24 +520,6 @@ body::before {
     font-size: 2.5rem;
     z-index: 2;
     position: relative;
-}
-
-.credential-glow {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 60px;
-    height: 60px;
-    background: radial-gradient(circle, rgba(139, 69, 255, 0.3) 0%, transparent 70%);
-    border-radius: 50%;
-    z-index: 1;
-    animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-    0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
-    50% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
 }
 
 .credential-text h4 {
@@ -501,88 +535,49 @@ body::before {
     line-height: 1.4;
 }
 
-/* Professional Photo Layout */
-.about-image {
+/* Teaching Photos Section */
+.teaching-section {
+    padding: 150px 0;
+    background: linear-gradient(135deg, rgba(45, 27, 105, 0.95) 0%, rgba(26, 11, 46, 0.9) 100%);
     position: relative;
 }
 
-.image-container {
-    position: relative;
-    border-radius: 25px;
-    overflow: hidden;
+.teaching-header {
+    text-align: center;
+    margin-bottom: 80px;
 }
 
-.main-photo {
+.teaching-photos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 40px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.teaching-photo-card {
     position: relative;
-    width: 100%;
-    height: 400px;
     border-radius: 20px;
     overflow: hidden;
-    margin-bottom: 20px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-}
-
-.coach-photo {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
     transition: transform 0.3s ease;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
 }
 
-.main-photo:hover .coach-photo {
-    transform: scale(1.05);
-}
-
-.photo-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
-    padding: 30px 25px 25px;
-    color: #ffffff;
-}
-
-.photo-text {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 5px;
-}
-
-.photo-subtitle {
-    font-size: 1rem;
-    color: #a78bfa;
-    font-weight: 500;
-}
-
-.teaching-photos {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
+.teaching-photo-card:hover {
+    transform: translateY(-10px);
 }
 
 .teaching-photo {
-    position: relative;
-    height: 120px;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease;
-}
-
-.teaching-photo:hover {
-    transform: translateY(-5px);
-}
-
-.teaching-img {
     width: 100%;
-    height: 100%;
+    height: 300px;
     object-fit: cover;
     transition: transform 0.3s ease;
 }
 
-.teaching-photo:hover .teaching-img {
-    transform: scale(1.1);
+.teaching-photo-card:hover .teaching-photo {
+    transform: scale(1.05);
 }
 
 .photo-caption {
@@ -590,12 +585,21 @@ body::before {
     bottom: 0;
     left: 0;
     right: 0;
-    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
     color: #ffffff;
-    padding: 15px 10px 10px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    text-align: center;
+    padding: 30px 25px 25px;
+}
+
+.photo-caption h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.photo-caption p {
+    font-size: 1rem;
+    color: #a78bfa;
+    line-height: 1.4;
 }
 
 /* Contact Section */
@@ -651,19 +655,6 @@ body::before {
     font-size: 2rem;
     z-index: 2;
     position: relative;
-}
-
-.contact-icon-glow {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 50px;
-    height: 50px;
-    background: radial-gradient(circle, rgba(139, 69, 255, 0.3) 0%, transparent 70%);
-    border-radius: 50%;
-    z-index: 1;
-    animation: pulse 2s ease-in-out infinite;
 }
 
 .contact-text h4 {
@@ -847,6 +838,25 @@ body::before {
         padding: 100px 0 60px;
     }
     
+    .hero-content {
+        max-width: 100%;
+    }
+    
+    .hero-photo {
+        position: relative;
+        right: auto;
+        top: auto;
+        transform: none;
+        margin-top: 40px;
+        display: flex;
+        justify-content: center;
+    }
+    
+    .intro-photo {
+        width: 250px;
+        height: 320px;
+    }
+    
     .hero-cta {
         flex-direction: column;
         align-items: center;
@@ -857,13 +867,21 @@ body::before {
     }
     
     .about-content {
+        max-width: 100%;
+    }
+    
+    .credentials {
         grid-template-columns: 1fr;
-        gap: 60px;
     }
     
     .contact-content {
         grid-template-columns: 1fr;
         gap: 60px;
+    }
+    
+    .teaching-photos-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
     }
     
     .footer-content {
@@ -875,15 +893,6 @@ body::before {
     .footer-links {
         flex-wrap: wrap;
         justify-content: center;
-    }
-    
-    .teaching-photos {
-        grid-template-columns: 1fr;
-        gap: 10px;
-    }
-    
-    .teaching-photo {
-        height: 100px;
     }
 }
 
@@ -914,7 +923,12 @@ body::before {
         gap: 20px;
     }
     
-    .main-photo {
-        height: 300px;
+    .intro-photo {
+        width: 200px;
+        height: 280px;
+    }
+    
+    .teaching-photo {
+        height: 250px;
     }
 }
