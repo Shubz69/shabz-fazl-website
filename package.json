@@ -1,0 +1,28 @@
+{
+  "name": "shabz-fazl-landing",
+  "version": "1.0.0",
+  "description": "High-performance coach landing page for Shabz Fazl",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "dev": "python -m http.server 8000",
+    "build": "echo 'No build step required - static site'",
+    "deploy": "echo 'Ready for deployment - upload files to hosting platform'"
+  },
+  "keywords": [
+    "landing-page",
+    "coaching",
+    "high-performance",
+    "responsive",
+    "modern"
+  ],
+  "author": "Shabz Fazl",
+  "license": "Private",
+  "repository": {
+    "type": "git",
+    "url": "private"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
