@@ -109,36 +109,6 @@ if (sendBtn) {
     });
 }
     
-        // Check for success parameter in URL
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get('success') === 'true') {
-            alert('Thank you for your message! Shabz will get back to you within 24 hours.');
-            // Clean up the URL
-            window.history.replaceState({}, document.title, window.location.pathname);
-        }
-        
-        // Add backup email functionality
-        if (contactForm) {
-            contactForm.addEventListener('submit', function(e) {
-                // Get form data for backup email
-                const name = document.getElementById('name').value.trim();
-                const email = document.getElementById('email').value.trim();
-                const message = document.getElementById('message').value.trim();
-                
-                // Create backup email link (will open email client as fallback)
-                const subject = `New Contact Form Submission from ${name}`;
-                const body = `Name: ${name}\nEmail: ${email}\nMessage: ${message}`;
-                const mailtoLink = `mailto:contact@shabzfazl.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-                
-                // Store in localStorage for backup
-                localStorage.setItem('lastFormSubmission', JSON.stringify({
-                    name, email, message, timestamp: new Date().toISOString()
-                }));
-                
-                console.log('Form data stored for backup:', { name, email, message });
-            });
-        }
-    
     // Parallax effect for floating elements
     window.addEventListener('scroll', () => {
         const scrolled = window.pageYOffset;
