@@ -148,7 +148,8 @@ app.listen(PORT, () => {
     console.log(`Visit http://localhost:${PORT} to view the website`);
 }).on('error', (err) => {
     console.error('Server error:', err);
-    process.exit(1);
+    console.log('Server will continue running...');
+    // Don't exit on Railway
 });
 
 // Handle uncaught exceptions gracefully (don't exit on Railway)
