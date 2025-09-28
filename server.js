@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const nodemailer = require('nodemailer');
 const cors = require('cors');
@@ -6,22 +7,27 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Debug: Log environment variables
+console.log('Email User:', process.env.EMAIL_USER);
+console.log('Email Pass:', process.env.EMAIL_PASS ? '***hidden***' : 'NOT SET');
+console.log('Port:', PORT);
+
 // Middleware
 app.use(cors());
 app.use(express.json());
 app.use(express.static('.'));
 
-// Email configuration for Outlook Business
-const transporter = nodemailer.createTransporter({
-    host: 'smtp-mail.outlook.com', // Outlook SMTP server
-    port: 587, // Outlook SMTP port
-    secure: false, // true for 465, false for other ports
+// Email configuration for GoDaddy
+const transporter = nodemailer.createTransport({
+    host: 'smtpout.secureserver.net', // GoDaddy SMTP server
+    port: 465, // GoDaddy SMTP port for SSL
+    secure: true, // Use SSL
     auth: {
-        user: process.env.EMAIL_USER || 'your-email@yourdomain.com', // Your business email
-        pass: process.env.EMAIL_PASS || 'your-email-password' // Your email password
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
     },
     tls: {
-        ciphers: 'SSLv3' // Use SSLv3 for Outlook
+        rejectUnauthorized: false
     }
 });
 
@@ -80,9 +86,15 @@ app.post('/api/contact', async (req, res) => {
             replyTo: email
         };
 
-        // Send email
-        await transporter.sendMail(mailOptions);
+        // Test connection first
+        console.log('Testing email connection...');
+        await transporter.verify();
+        console.log('Email connection verified successfully!');
 
+        // Send email
+        console.log('Sending email...');
+        const info = await transporter.sendMail(mailOptions);
+        console.log('Email sent successfully:', info.messageId);
         console.log(`Email sent successfully from ${name} (${email})`);
 
         res.json({ 
@@ -91,7 +103,9 @@ app.post('/api/contact', async (req, res) => {
         });
 
     } catch (error) {
-        console.error('Error sending email:', error);
+        console.error('Detailed error sending email:', error);
+        console.error('Error code:', error.code);
+        console.error('Error response:', error.response);
         res.status(500).json({ 
             success: false, 
             message: 'Sorry, there was an error sending your message. Please try again later.' 
