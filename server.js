@@ -1,4 +1,8 @@
-require('dotenv').config();
+// Only load dotenv in development
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+}
+
 const express = require('express');
 const nodemailer = require('nodemailer');
 const cors = require('cors');
@@ -12,29 +16,43 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static('.'));
 
-// GoDaddy SMTP Configuration
-const transporter = nodemailer.createTransport({
-    host: 'smtpout.secureserver.net',
-    port: 465,
-    secure: true,
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
-    }
-});
+// GoDaddy SMTP Configuration (only if environment variables are available)
+let transporter = null;
 
-// Test SMTP connection
-transporter.verify((error, success) => {
-    if (error) {
-        console.log('SMTP Error:', error);
-    } else {
-        console.log('SMTP Server is ready to send emails');
-    }
-});
+if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
+    transporter = nodemailer.createTransport({
+        host: 'smtpout.secureserver.net',
+        port: 465,
+        secure: true,
+        auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS
+        }
+    });
+
+    // Test SMTP connection
+    transporter.verify((error, success) => {
+        if (error) {
+            console.log('SMTP Error:', error);
+        } else {
+            console.log('SMTP Server is ready to send emails');
+        }
+    });
+} else {
+    console.log('SMTP not configured - environment variables missing');
+}
 
 // Contact form endpoint
 app.post('/send-email', async (req, res) => {
     try {
+        // Check if SMTP is configured
+        if (!transporter) {
+            return res.status(500).json({ 
+                success: false, 
+                message: 'Email service not configured. Please try again later.' 
+            });
+        }
+
         const { name, email, message } = req.body;
 
         // Validate required fields
@@ -111,6 +129,12 @@ app.get('/health', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
     console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
-    console.log(`Email User: ${process.env.EMAIL_USER ? 'Set' : 'Not Set'}`);
-    console.log(`Email Pass: ${process.env.EMAIL_PASS ? 'Set' : 'Not Set'}`);
+    
+    // Only log email config if we're not in production (for security)
+    if (process.env.NODE_ENV !== 'production') {
+        console.log(`Email User: ${process.env.EMAIL_USER ? 'Set' : 'Not Set'}`);
+        console.log(`Email Pass: ${process.env.EMAIL_PASS ? 'Set' : 'Not Set'}`);
+    } else {
+        console.log(`Email Config: ${transporter ? 'Configured' : 'Not Configured'}`);
+    }
 });
