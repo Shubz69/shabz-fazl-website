@@ -30,9 +30,10 @@ console.log('2. Run: npm install');
 console.log('3. Run: npm start');
 console.log('4. Open: http://localhost:3000\n');
 
-console.log('📧 For Gmail setup:');
-console.log('1. Enable 2-Factor Authentication');
-console.log('2. Generate App Password: Google Account → Security → 2-Step Verification → App passwords');
-console.log('3. Use the app password in your .env file\n');
+console.log('📧 For Outlook Business Email setup:');
+console.log('1. Use your business email: your-email@yourdomain.com');
+console.log('2. Use your regular email password (or app password if 2FA enabled)');
+console.log('3. If 2FA enabled: Microsoft Account → Security → App passwords');
+console.log('4. Update the .env file with your credentials\n');
 
 console.log('🎉 Setup complete! Your website is ready to go.');

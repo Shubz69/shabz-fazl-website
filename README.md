@@ -19,14 +19,24 @@ EMAIL_PASS=your-app-password
 PORT=3000
 ```
 
-### 3. Gmail Setup (Recommended)
+### 3. Outlook Business Email Setup
 
-1. **Enable 2-Factor Authentication** on your Gmail account
-2. **Generate an App Password**:
-   - Go to Google Account settings
-   - Security → 2-Step Verification → App passwords
-   - Generate a password for "Mail"
-   - Use this password in your `.env` file
+1. **Use your business email credentials**:
+   - Email: `your-email@yourdomain.com`
+   - Password: Your regular email password (or app password if 2FA is enabled)
+
+2. **If 2-Factor Authentication is enabled**:
+   - Go to Microsoft Account settings
+   - Security → Advanced security options → App passwords
+   - Generate a new app password for "Mail"
+   - Use this app password instead of your regular password
+
+3. **Update your `.env` file**:
+   ```env
+   EMAIL_USER=your-email@yourdomain.com
+   EMAIL_PASS=your-email-password
+   PORT=3000
+   ```
 
 ### 4. Run the Server
 

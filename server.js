@@ -11,12 +11,17 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static('.'));
 
-// Email configuration
+// Email configuration for Outlook Business
 const transporter = nodemailer.createTransporter({
-    service: 'gmail', // You can change this to your preferred email service
+    host: 'smtp-mail.outlook.com', // Outlook SMTP server
+    port: 587, // Outlook SMTP port
+    secure: false, // true for 465, false for other ports
     auth: {
-        user: process.env.EMAIL_USER || 'your-email@gmail.com', // Replace with your email
-        pass: process.env.EMAIL_PASS || 'your-app-password' // Replace with your app password
+        user: process.env.EMAIL_USER || 'your-email@yourdomain.com', // Your business email
+        pass: process.env.EMAIL_PASS || 'your-email-password' // Your email password
+    },
+    tls: {
+        ciphers: 'SSLv3' // Use SSLv3 for Outlook
     }
 });
 
