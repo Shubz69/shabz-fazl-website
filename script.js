@@ -91,14 +91,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 submitBtn.disabled = true;
                 
                 try {
-                    // Send data to server
+                    // Send data to server with timeout
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+                    
                     const response = await fetch('/api/contact', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                         },
-                        body: JSON.stringify({ name, email, message })
+                        body: JSON.stringify({ name, email, message }),
+                        signal: controller.signal
                     });
+                    
+                    clearTimeout(timeoutId);
                     
                     const result = await response.json();
                     
@@ -111,7 +117,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                 } catch (error) {
                     console.error('Error:', error);
-                    alert('Sorry, there was an error sending your message. Please try again later.');
+                    if (error.name === 'AbortError') {
+                        alert('Request timed out. Please check your internet connection and try again.');
+                    } else {
+                        alert('Sorry, there was an error sending your message. Please try again later.');
+                    }
                 } finally {
                     // Reset button state
                     submitBtn.textContent = originalText;
