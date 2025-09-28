@@ -74,9 +74,9 @@ app.post('/api/contact', async (req, res) => {
             });
         }
 
-        // Email options - send TO your GoDaddy email via Resend
+        // Email options - send FROM the person TO your email
         const mailOptions = {
-            from: 'noreply@shabzfazl.com', // FROM Resend (will be verified)
+            from: `"${name}" <${email}>`, // FROM the person who contacted you
             to: 'contact@shabzfazl.com',   // TO your GoDaddy email
             subject: `New Contact Form Submission from ${name}`,
             html: createEmailTemplate(name, email, message),
