@@ -50,21 +50,35 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Contact form submission handling
     const contactForm = document.getElementById('contactForm');
+    console.log('Contact form found:', contactForm);
+    
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
+            console.log('Form submitted');
             
             // Get form data directly from input values
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const message = document.getElementById('message').value.trim();
+            const nameInput = document.getElementById('name');
+            const emailInput = document.getElementById('email');
+            const messageInput = document.getElementById('message');
+            
+            console.log('Input elements:', { nameInput, emailInput, messageInput });
+            
+            const name = nameInput ? nameInput.value.trim() : '';
+            const email = emailInput ? emailInput.value.trim() : '';
+            const message = messageInput ? messageInput.value.trim() : '';
             
             // Debug logging
             console.log('Form data:', { name, email, message });
+            console.log('Field lengths:', { 
+                nameLength: name.length, 
+                emailLength: email.length, 
+                messageLength: message.length 
+            });
             
             // Simple validation
             if (!name || !email || !message) {
-                alert('Please fill in all required fields.');
+                alert(`Please fill in all required fields.\nName: "${name}"\nEmail: "${email}"\nMessage: "${message}"`);
                 return;
             }
             
@@ -97,12 +111,16 @@ ${name}`;
             // Create mailto link
             const mailtoLink = `mailto:contact@shabzfazl.com?subject=${encodedSubject}&body=${encodedBody}`;
             
+            console.log('Opening email client with link:', mailtoLink);
+            
             // Open email client
             window.location.href = mailtoLink;
             
             // Show confirmation
             alert('Your email client should open with your message ready to send. If it doesn\'t open, please email contact@shabzfazl.com directly.');
         });
+    } else {
+        console.error('Contact form not found!');
     }
     
     // Parallax effect for floating elements
