@@ -1,5 +1,7 @@
 // Modern functionality with animations and interactions
+console.log('=== SCRIPT LOADED ===');
 console.log('Script.js loaded successfully');
+alert('JavaScript is working! Check console for details.');
 
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM Content Loaded - script is running');
