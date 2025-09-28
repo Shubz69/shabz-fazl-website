@@ -231,10 +231,7 @@ body {
 }
 
 .title-line.highlight {
-    background: linear-gradient(135deg, var(--color-accent-purple), var(--color-light-purple));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--color-light-purple);
 }
 
 .hero-description {
@@ -269,14 +266,14 @@ body {
 }
 
 .cta-primary {
-    background: linear-gradient(135deg, var(--color-accent-purple), var(--color-light-purple));
+    background: var(--color-accent-purple);
     color: var(--color-white);
-    box-shadow: 0 4px 20px rgba(124, 58, 237, 0.25);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 .cta-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(124, 58, 237, 0.35);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
 }
 
 .cta-secondary {
@@ -315,7 +312,7 @@ body {
     display: block;
     font-size: 2.5rem;
     font-weight: 800;
-    color: var(--color-accent-purple);
+    color: var(--color-light-purple);
     margin-bottom: 5px;
 }
 
@@ -342,7 +339,7 @@ body {
 .scroll-line {
     width: 2px;
     height: 30px;
-    background: linear-gradient(to bottom, var(--color-accent-purple), transparent);
+    background: var(--color-light-purple);
     animation: scrollPulse 2s ease-in-out infinite;
 }
 
@@ -429,7 +426,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, var(--color-accent-purple), var(--color-light-purple));
+    background: var(--color-accent-purple);
     border-radius: 50%;
 }
 
@@ -588,7 +585,7 @@ body {
 .submit-btn {
     width: 100%;
     padding: 18px 32px;
-    background: linear-gradient(135deg, var(--color-accent-purple), var(--color-light-purple));
+    background: var(--color-accent-purple);
     color: var(--color-white);
     border: none;
     border-radius: var(--border-radius-medium);
@@ -596,12 +593,12 @@ body {
     font-weight: 600;
     cursor: pointer;
     transition: all var(--transition-speed) ease;
-    box-shadow: 0 4px 20px rgba(124, 58, 237, 0.25);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 .submit-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(124, 58, 237, 0.35);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
 }
 
 .contact-info {
@@ -622,7 +619,7 @@ body {
 .contact-item-icon {
     font-size: 2rem;
     margin-bottom: 15px;
-    color: var(--color-accent-purple);
+    color: var(--color-light-purple);
 }
 
 .contact-item h3 {
@@ -745,10 +742,10 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--color-accent-purple);
+    background: var(--color-light-purple);
     border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-light-purple);
+    background: var(--color-accent-purple);
 }
