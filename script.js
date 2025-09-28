@@ -57,21 +57,57 @@ document.addEventListener('DOMContentLoaded', function() {
     // Test if JavaScript is working
     console.log('JavaScript is working!');
     
-        // Contact form submission - Formspree handles it
-        const contactForm = document.getElementById('contact-form');
+// Contact form submission - Direct email sending
+const sendBtn = document.getElementById('send-btn');
+
+if (sendBtn) {
+    sendBtn.addEventListener('click', function() {
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const message = document.getElementById('message').value.trim();
         
-        if (contactForm) {
-            contactForm.addEventListener('submit', function(e) {
-                // Show loading state
-                const submitBtn = this.querySelector('.submit-btn');
-                const originalText = submitBtn.textContent;
-                submitBtn.textContent = 'Sending...';
-                submitBtn.disabled = true;
-                
-                // Let the form submit normally to Formspree
-                // Formspree will handle sending the email to contact@shabzfazl.com
-            });
+        // Validate fields
+        if (!name || !email || !message) {
+            alert('Please fill in all fields');
+            return;
         }
+        
+        // Validate email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            alert('Please enter a valid email address');
+            return;
+        }
+        
+        // Show loading state
+        const originalText = sendBtn.textContent;
+        sendBtn.textContent = 'Sending...';
+        sendBtn.disabled = true;
+        
+        // Create email content
+        const subject = `Message from ${name} - Website Contact Form`;
+        const body = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
+        
+        // Create mailto link
+        const mailtoLink = `mailto:contact@shabzfazl.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        
+        // Open email client
+        window.location.href = mailtoLink;
+        
+        // Reset button after a moment
+        setTimeout(() => {
+            sendBtn.textContent = originalText;
+            sendBtn.disabled = false;
+            
+            // Clear form
+            document.getElementById('name').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('message').value = '';
+            
+            alert('Your email client should open with the message ready to send. Click send in your email client to deliver the message to contact@shabzfazl.com');
+        }, 1000);
+    });
+}
     
         // Check for success parameter in URL
         const urlParams = new URLSearchParams(window.location.search);
