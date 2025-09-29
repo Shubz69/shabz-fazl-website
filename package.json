@@ -1,0 +1,8 @@
+{
+  "name": "shabz-fazl-website",
+  "version": "1.0.0",
+  "type": "module",
+  "dite": {
+    "entry": "index.html"
+  }
+}
