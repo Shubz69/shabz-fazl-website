@@ -96,7 +96,7 @@ Reply directly to this email to respond to ${name}.
     }
 
     const result = await response.json();
-    console.log('Email sent successfully:', result);
+    console.log('Email sent successfully via Resend:', result);
 
     res.status(200).json({ 
       success: true, 
