@@ -1,7 +1,0 @@
-# GoDaddy Email Configuration
-EMAIL_USER=your-godaddy-email@shabzfazl.com
-EMAIL_PASS=your-godaddy-email-password
-
-# Server Configuration
-PORT=3000
-NODE_ENV=production

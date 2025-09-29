@@ -1,57 +1,37 @@
-# Vercel Deployment Instructions (FREE)
+# Vercel Deployment Setup
 
 ## Step 1: Deploy to Vercel
 
-1. Go to [vercel.com](https://vercel.com)
-2. Click **"Sign up"** or **"Login"**
-3. Choose **"Continue with GitHub"**
-4. Click **"New Project"**
-5. Import your repository: `Shubz69/shabz-fazl-website`
-6. Click **"Deploy"**
-7. Wait 2-3 minutes for deployment
+1. **Go to [vercel.com](https://vercel.com)**
+2. **Sign up/Login with GitHub**
+3. **Click "New Project"**
+4. **Import your GitHub repository:** `Shubz69/shabz-fazl-website`
+5. **Click "Deploy"**
 
-## Step 2: Your Website URL
+## Step 2: Set Up Formspree for Contact Form
 
-Your website will be live at:
-`https://shabz-fazl-website.vercel.app` (or similar)
+1. **Go to [formspree.io](https://formspree.io)**
+2. **Sign up for free account**
+3. **Create new form:**
+   - **Name:** Shabz Fazl Contact Form
+   - **Email:** contact@shabzfazl.com
+4. **Copy your form endpoint** (will be something like `https://formspree.io/f/xxxxx`)
+5. **Update the form action in `index.html`:**
+   ```html
+   <form id="contact-form" action="YOUR_FORMSPREE_ENDPOINT" method="POST" class="form">
+   ```
 
-## Step 3: Custom Domain (Optional)
+## Step 3: Test
 
-If you want to use `shabzfazl.com`:
+1. **Visit your Vercel URL**
+2. **Fill out contact form**
+3. **Submit and check contact@shabzfazl.com inbox**
 
-1. In Vercel dashboard, go to your project
-2. Click **"Settings"** → **"Domains"**
-3. Add your domain: `shabzfazl.com`
-4. Follow DNS setup instructions
-5. Add DNS records to your GoDaddy domain
-
-## Step 4: Test Contact Form
-
-1. Go to your live Vercel website
-2. Fill out the contact form:
-   - Name: Test User
-   - Email: your-email@example.com
-   - Message: This is a test message
-3. Click **"Send Message"**
-4. Your email client should open with:
-   - **To**: `contact@shabzfazl.com`
-   - **Subject**: "Contact from Test User"
-   - **Body**: Pre-filled with form details
-5. Send the email
-6. Check your `contact@shabzfazl.com` inbox
-
-## Benefits of Vercel
-
-- ✅ **100% FREE** (no credits needed)
-- ✅ **Automatic deployments** from GitHub
+## Benefits:
+- ✅ **Free hosting** on Vercel
+- ✅ **Simple deployment** from GitHub
+- ✅ **Automatic HTTPS**
 - ✅ **Fast global CDN**
-- ✅ **Custom domains supported**
-- ✅ **No server configuration needed**
+- ✅ **Contact form works** via Formspree
 
-## How Contact Form Works
-
-1. **User fills form** → **Clicks Send Message**
-2. **Email client opens** → **Pre-filled email to contact@shabzfazl.com**
-3. **User sends email** → **Arrives in your GoDaddy inbox**
-
-This is the simplest, most reliable solution!
+Your website will be live at a URL like `your-project.vercel.app`
