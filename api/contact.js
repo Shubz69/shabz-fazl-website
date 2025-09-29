@@ -37,7 +37,7 @@ const handler = async (req, res) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: 'Shabz Fazl Website <noreply@shabzfazl.com>',
+        from: 'Shabz Fazl Website <onboarding@resend.dev>',
         to: ['contact@shabzfazl.com'],
         replyTo: email,
         subject: `New Message from ${name} - Shabz Fazl Website`,
