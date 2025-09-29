@@ -24,17 +24,54 @@ const handler = async (req, res) => {
 
     const emailData = {
       from: 'onboarding@resend.dev',
-      to: 'contact@shabzfazl.com',
+      to: 'shubzfx@gmail.com',
       replyTo: email,
-      subject: `New Message from ${name}`,
+      subject: `New Message from ${name} - Shabz Fazl Website`,
       html: `
-        <h2>New Contact Form Message</h2>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Message:</strong></p>
-        <p>${message}</p>
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #f8f9fa; padding: 20px;">
+          <div style="background: linear-gradient(135deg, #6B46C1 0%, #8B5CF6 100%); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
+            <h1 style="margin: 0; font-size: 24px;">New Website Message</h1>
+            <p style="margin: 5px 0 0 0; opacity: 0.9;">Someone contacted you through your website</p>
+          </div>
+          <div style="background: white; padding: 30px; border-radius: 0 0 10px 10px;">
+            <p style="color: #666; margin-bottom: 25px;">You've received a new message from your Shabz Fazl website contact form:</p>
+            
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; border-left: 4px solid #6B46C1; margin-bottom: 20px;">
+              <strong style="color: #6B46C1;">Name:</strong><br>
+              <span style="color: #333;">${name}</span>
+            </div>
+            
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; border-left: 4px solid #6B46C1; margin-bottom: 20px;">
+              <strong style="color: #6B46C1;">Email:</strong><br>
+              <span style="color: #333;">${email}</span>
+            </div>
+            
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; border-left: 4px solid #6B46C1;">
+              <strong style="color: #6B46C1;">Message:</strong><br>
+              <div style="color: #333; margin-top: 10px; white-space: pre-wrap;">${message}</div>
+            </div>
+          </div>
+          <div style="background: #f8f9fa; padding: 20px; text-align: center; color: #666; font-size: 14px; border-radius: 0 0 10px 10px;">
+            <p><strong>This message was sent from your Shabz Fazl website contact form.</strong></p>
+            <p>Reply directly to this email to respond to ${name}.</p>
+          </div>
+        </div>
       `,
-      text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`
+      text: `
+New Message from ${name} - Shabz Fazl Website
+
+You've received a new message from your website contact form:
+
+Name: ${name}
+Email: ${email}
+
+Message:
+${message}
+
+---
+This message was sent from your Shabz Fazl website.
+Reply directly to this email to respond to ${name}.
+      `
     };
 
     console.log('Sending email with data:', emailData);
