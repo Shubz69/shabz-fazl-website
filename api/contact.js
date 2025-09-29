@@ -24,7 +24,12 @@ const handler = async (req, res) => {
       });
     }
 
-    // Send email using Vercel's built-in email functionality
+    // Check if API key is available
+    if (!process.env.RESEND_API_KEY) {
+      throw new Error('RESEND_API_KEY environment variable is not set');
+    }
+
+    // Send email using Resend API
     const response = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
@@ -85,8 +90,13 @@ Reply directly to this email to respond to ${name}.
     });
 
     if (!response.ok) {
-      throw new Error('Failed to send email');
+      const errorData = await response.text();
+      console.error('Resend API Error:', response.status, errorData);
+      throw new Error(`Resend API Error: ${response.status} - ${errorData}`);
     }
+
+    const result = await response.json();
+    console.log('Email sent successfully:', result);
 
     res.status(200).json({ 
       success: true, 
