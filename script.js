@@ -57,56 +57,60 @@ document.addEventListener('DOMContentLoaded', function() {
     // Test if JavaScript is working
     console.log('JavaScript is working!');
     
-// Contact form submission - Custom email via API
+// Contact form submission - Simple mailto with formatted message
 const contactForm = document.getElementById('contact-form');
 
 if (contactForm) {
-    contactForm.addEventListener('submit', async function(e) {
+    contactForm.addEventListener('submit', function(e) {
         e.preventDefault();
         
         const submitBtn = this.querySelector('.submit-btn');
         const originalText = submitBtn.textContent;
         
         // Show loading state
-        submitBtn.textContent = 'Sending...';
+        submitBtn.textContent = 'Opening Email...';
         submitBtn.disabled = true;
         
-        try {
-            // Get form data
-            const formData = new FormData(this);
-            const data = {
-                name: formData.get('name'),
-                email: formData.get('email'),
-                message: formData.get('message')
-            };
-            
-            // Send to custom API endpoint
-            const response = await fetch('/api/send-email', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data)
-            });
-            
-            const result = await response.json();
-            
-            if (result.success) {
-                alert(result.message);
-                // Clear form
-                this.reset();
-            } else {
-                alert('Error: ' + result.message);
-            }
-            
-        } catch (error) {
-            console.error('Error:', error);
-            alert('Failed to send message. Please try again later.');
-        } finally {
-            // Reset button
+        // Get form data
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const message = document.getElementById('message').value;
+        
+        // Create formatted email content
+        const subject = `New Message from ${name} - Shabz Fazl Website`;
+        const body = `Hello Shabz,
+
+You've received a new message from your website contact form:
+
+Name: ${name}
+Email: ${email}
+
+Message:
+${message}
+
+---
+This message was sent from your Shabz Fazl website.
+Please reply directly to ${email} to respond to ${name}.
+
+Best regards,
+Your Website Contact Form`;
+        
+        // Create mailto link
+        const mailtoLink = `mailto:contact@shabzfazl.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        
+        // Open email client
+        window.location.href = mailtoLink;
+        
+        // Reset button after a moment
+        setTimeout(() => {
             submitBtn.textContent = originalText;
             submitBtn.disabled = false;
-        }
+            
+            // Clear form
+            this.reset();
+            
+            alert('Your email client should open with the message ready to send. Click send in your email client to deliver the message to contact@shabzfazl.com');
+        }, 1000);
     });
 }
     
