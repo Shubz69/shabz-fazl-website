@@ -57,19 +57,56 @@ document.addEventListener('DOMContentLoaded', function() {
     // Test if JavaScript is working
     console.log('JavaScript is working!');
     
-// Contact form submission - Formspree handles it
+// Contact form submission - Custom email via API
 const contactForm = document.getElementById('contact-form');
 
 if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
-        // Show loading state
+    contactForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
         const submitBtn = this.querySelector('.submit-btn');
         const originalText = submitBtn.textContent;
+        
+        // Show loading state
         submitBtn.textContent = 'Sending...';
         submitBtn.disabled = true;
         
-        // Let the form submit normally to Formspree
-        // Formspree will handle sending the email to contact@shabzfazl.com
+        try {
+            // Get form data
+            const formData = new FormData(this);
+            const data = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                message: formData.get('message')
+            };
+            
+            // Send to custom API endpoint
+            const response = await fetch('/api/send-email', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                alert(result.message);
+                // Clear form
+                this.reset();
+            } else {
+                alert('Error: ' + result.message);
+            }
+            
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Failed to send message. Please try again later.');
+        } finally {
+            // Reset button
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        }
     });
 }
     
