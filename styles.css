@@ -345,7 +345,7 @@ body {
 
 .cta-primary, .cta-secondary {
     padding: 12px 24px;
-    border-radius: 25px;
+    border-radius: 8px;
     font-size: 1rem;
     font-weight: 600;
     text-decoration: none;
@@ -867,7 +867,7 @@ body {
     background: linear-gradient(135deg, #7c3aed 0%, #a855f7 50%, #c084fc 100%);
     color: var(--color-white);
     border: none;
-    border-radius: 16px;
+    border-radius: 8px;
     font-size: 1.2rem;
     font-weight: 700;
     cursor: pointer;
@@ -1064,7 +1064,7 @@ body {
     background: var(--color-accent-purple);
     color: var(--color-white);
     border: none;
-    border-radius: var(--border-radius-medium);
+    border-radius: 8px;
     font-size: 1.1rem;
     font-weight: 600;
     cursor: pointer;
