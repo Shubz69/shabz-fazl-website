@@ -23,10 +23,19 @@ const handler = async (req, res) => {
     }
 
     const emailData = {
-      from: 'noreply@shabzfazl.com',
+      from: 'Shabz Fazl <noreply@shabzfazl.com>',
       to: ['contact@shabzfazl.com'],
       replyTo: email,
-      subject: `New Message from ${name} - Shabz Fazl Website`,
+      subject: `New Contact Form Message from ${name}`,
+      headers: {
+        'X-Priority': '1',
+        'X-MSMail-Priority': 'High',
+        'Importance': 'high',
+        'X-Mailer': 'Shabz Fazl Website Contact Form',
+        'X-Entity-Ref-ID': `contact-${Date.now()}`,
+        'List-Unsubscribe': '<mailto:unsubscribe@shabzfazl.com>',
+        'Return-Path': 'noreply@shabzfazl.com'
+      },
       html: `
         <!DOCTYPE html>
         <html>
@@ -34,6 +43,8 @@ const handler = async (req, res) => {
           <meta charset="utf-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
           <title>New Contact Form Message</title>
+          <meta name="format-detection" content="telephone=no">
+          <meta name="x-apple-disable-message-reformatting">
         </head>
         <body style="margin: 0; padding: 0; background-color: #f4f4f7; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
           <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); border-radius: 16px; overflow: hidden;">
@@ -117,20 +128,26 @@ const handler = async (req, res) => {
         </html>
       `,
       text: `
-New Message from ${name} - Shabz Fazl Website
+CONTACT FORM SUBMISSION - Shabz Fazl Website
 
-You've received a new message from your website contact form:
+A new message has been received through your website contact form.
 
+CONTACT DETAILS:
+================
 Name: ${name}
 Email: ${email}
 Service Interest: ${service}
 
-Message:
+MESSAGE:
+========
 ${message}
 
 ---
-This message was sent from your Shabz Fazl website.
-Reply directly to this email to respond to ${name}.
+This is an automated message from your Shabz Fazl website contact form.
+Please reply directly to this email to respond to ${name}.
+
+Website: https://shabzfazl.com
+Business: Shabz Fazl - Mindset & Performance Psychology Coach
       `
     };
 
