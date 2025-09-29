@@ -23,8 +23,8 @@ const handler = async (req, res) => {
     }
 
     const emailData = {
-      from: 'onboarding@resend.dev',
-      to: 'shubzfx@gmail.com',
+      from: 'Shabz Fazl Website <noreply@shabzfazl.com>',
+      to: 'contact@shabzfazl.com',
       replyTo: email,
       subject: `New Message from ${name} - Shabz Fazl Website`,
       html: `
