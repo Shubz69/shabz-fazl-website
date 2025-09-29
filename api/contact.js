@@ -7,9 +7,9 @@ const handler = async (req, res) => {
 
   try {
     console.log('Request body:', req.body);
-    const { name, email, message } = req.body;
+    const { name, email, service, message } = req.body;
 
-    if (!name || !email || !message) {
+    if (!name || !email || !service || !message) {
       return res.status(400).json({ 
         success: false, 
         message: 'All fields are required' 
@@ -73,6 +73,15 @@ const handler = async (req, res) => {
                 </div>
               </div>
               
+              <!-- Service Field -->
+              <div style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); padding: 24px; border-radius: 12px; border-left: 5px solid #7C3AED; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);">
+                <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                  <div style="width: 8px; height: 8px; background: #7C3AED; border-radius: 50%; margin-right: 12px;"></div>
+                  <strong style="color: #7C3AED; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Service Interest</strong>
+                </div>
+                <div style="color: #1e293b; font-size: 16px; font-weight: 500; margin-left: 20px;">${service}</div>
+              </div>
+              
               <!-- Message Field -->
               <div style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); padding: 24px; border-radius: 12px; border-left: 5px solid #A855F7; margin-bottom: 30px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);">
                 <div style="display: flex; align-items: center; margin-bottom: 12px;">
@@ -114,6 +123,7 @@ You've received a new message from your website contact form:
 
 Name: ${name}
 Email: ${email}
+Service Interest: ${service}
 
 Message:
 ${message}
