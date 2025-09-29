@@ -22,12 +22,18 @@ let transporter = null;
 if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
     transporter = nodemailer.createTransport({
         host: 'smtpout.secureserver.net',
-        port: 465,
-        secure: true,
+        port: 587,
+        secure: false,
         auth: {
             user: process.env.EMAIL_USER,
             pass: process.env.EMAIL_PASS
-        }
+        },
+        tls: {
+            rejectUnauthorized: false
+        },
+        connectionTimeout: 60000,
+        greetingTimeout: 30000,
+        socketTimeout: 60000
     });
 
     // Test SMTP connection
