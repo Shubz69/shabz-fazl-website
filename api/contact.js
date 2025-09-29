@@ -23,7 +23,7 @@ const handler = async (req, res) => {
     }
 
     const emailData = {
-      from: 'Shabz Fazl <noreply@shabzfazl.com>',
+      from: 'noreply@shabzfazl.com',
       to: ['contact@shabzfazl.com'],
       replyTo: email,
       subject: `New Contact Form Message from ${name}`,
@@ -34,7 +34,9 @@ const handler = async (req, res) => {
         'X-Mailer': 'Shabz Fazl Website Contact Form',
         'X-Entity-Ref-ID': `contact-${Date.now()}`,
         'List-Unsubscribe': '<mailto:unsubscribe@shabzfazl.com>',
-        'Return-Path': 'noreply@shabzfazl.com'
+        'Return-Path': 'noreply@shabzfazl.com',
+        'Message-ID': `<contact-${Date.now()}@shabzfazl.com>`,
+        'X-Original-Sender': 'noreply@shabzfazl.com'
       },
       html: `
         <!DOCTYPE html>
