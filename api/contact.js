@@ -23,8 +23,8 @@ const handler = async (req, res) => {
     }
 
     const emailData = {
-      from: 'Shabz Fazl Website <noreply@shabzfazl.com>',
-      to: 'contact@shabzfazl.com',
+      from: 'noreply@shabzfazl.com',
+      to: ['contact@shabzfazl.com'],
       replyTo: email,
       subject: `New Message from ${name} - Shabz Fazl Website`,
       html: `
@@ -95,10 +95,12 @@ Reply directly to this email to respond to ${name}.
 
     const result = await response.json();
     console.log('Email sent successfully:', result);
+    console.log('Email ID:', result.id);
+    console.log('Email status:', result.status);
 
     res.status(200).json({ 
       success: true, 
-      message: 'Message sent successfully!' 
+      message: 'Message sent successfully! Check your contact@shabzfazl.com inbox.' 
     });
 
   } catch (error) {
