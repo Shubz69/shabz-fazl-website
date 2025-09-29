@@ -1,4 +1,4 @@
-export default async function handler(req, res) {
+const handler = async (req, res) => {
   // Only allow POST requests
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method not allowed' });
@@ -100,4 +100,6 @@ Reply directly to this email to respond to ${name}.
       message: 'Failed to send message. Please try again later.' 
     });
   }
-}
+};
+
+module.exports = handler;
